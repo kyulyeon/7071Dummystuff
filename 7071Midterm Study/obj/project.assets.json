@@ -5177,11 +5177,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\OHK\\Desktop\\study\\MidtermPrep7071\\7071Midterm Study\\7071Midterm Study.csproj",
+      "projectUniqueName": "C:\\Users\\OHK\\Desktop\\whatever\\7071Midterm Study\\7071Midterm Study.csproj",
       "projectName": "7071Midterm Study",
-      "projectPath": "C:\\Users\\OHK\\Desktop\\study\\MidtermPrep7071\\7071Midterm Study\\7071Midterm Study.csproj",
+      "projectPath": "C:\\Users\\OHK\\Desktop\\whatever\\7071Midterm Study\\7071Midterm Study.csproj",
       "packagesPath": "C:\\Users\\OHK\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\OHK\\Desktop\\study\\MidtermPrep7071\\7071Midterm Study\\obj\\",
+      "outputPath": "C:\\Users\\OHK\\Desktop\\whatever\\7071Midterm Study\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

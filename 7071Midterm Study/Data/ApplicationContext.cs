@@ -23,8 +23,58 @@ namespace _7071Midterm_Study.Data
 
             modelBuilder.Entity<Person>().HasKey(p => p.ID);
             modelBuilder.Entity<Service>().HasKey(s => s.ID);
-            modelBuilder.Entity<Client>().HasMany(c => c.Services).WithMany(s => s.Clients);
-            modelBuilder.Entity<Employee>().HasMany(e => e.Services).WithMany(s => s.Employees);
+
+            // Configure Employee–Service many-to-many relationship with join table seed data.
+            modelBuilder.Entity<Employee>()
+                .HasMany(e => e.Services)
+                .WithMany(s => s.Employees)
+                .UsingEntity<Dictionary<string, object>>(
+                    "EmployeeService",
+                    r => r.HasOne<Service>().WithMany().HasForeignKey("ServicesID"),
+                    l => l.HasOne<Employee>().WithMany().HasForeignKey("EmployeesID"),
+                    je =>
+                    {
+                        je.HasKey("EmployeesID", "ServicesID");
+                        je.HasData(
+                            new { EmployeesID = Guid.Parse("00000000-0000-0000-0000-000000000007"), ServicesID = Guid.Parse("22222222-2222-2222-2222-222222222222") },
+                            new { EmployeesID = Guid.Parse("00000000-0000-0000-0000-000000000007"), ServicesID = Guid.Parse("33333333-3333-3333-3333-333333333333") },
+                            new { EmployeesID = Guid.Parse("00000000-0000-0000-0000-000000000008"), ServicesID = Guid.Parse("44444444-4444-4444-4444-444444444444") },
+                            new { EmployeesID = Guid.Parse("00000000-0000-0000-0000-000000000009"), ServicesID = Guid.Parse("55555555-5555-5555-5555-555555555555") },
+                            new { EmployeesID = Guid.Parse("00000000-0000-0000-0000-00000000000A"), ServicesID = Guid.Parse("77777777-7777-7777-7777-777777777777") },
+                            new { EmployeesID = Guid.Parse("00000000-0000-0000-0000-00000000000B"), ServicesID = Guid.Parse("88888888-8888-8888-8888-888888888888") },
+                            new { EmployeesID = Guid.Parse("00000000-0000-0000-0000-00000000000C"), ServicesID = Guid.Parse("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa") },
+                            new { EmployeesID = Guid.Parse("00000000-0000-0000-0000-00000000000D"), ServicesID = Guid.Parse("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb") },
+                            new { EmployeesID = Guid.Parse("00000000-0000-0000-0000-00000000000E"), ServicesID = Guid.Parse("cccccccc-cccc-cccc-cccc-cccccccccccc") }
+                        );
+                    }
+                );
+            // Configure many-to-many relationship for Client and Service with join table seeding.
+            modelBuilder.Entity<Client>()
+                .HasMany(c => c.Services)
+                .WithMany(s => s.Clients)
+                .UsingEntity<Dictionary<string, object>>(
+                    "ClientService",
+                    r => r.HasOne<Service>().WithMany().HasForeignKey("ServicesID"),
+                    l => l.HasOne<Client>().WithMany().HasForeignKey("ClientsID"),
+                    je =>
+                    {
+                        je.HasKey("ClientsID", "ServicesID");
+                        je.HasData(
+                            new { ClientsID = Guid.Parse("00000000-0000-0000-0000-000000000001"), ServicesID = Guid.Parse("11111111-1111-1111-1111-111111111111") },
+                            new { ClientsID = Guid.Parse("00000000-0000-0000-0000-000000000001"), ServicesID = Guid.Parse("33333333-3333-3333-3333-333333333333") },
+                            new { ClientsID = Guid.Parse("00000000-0000-0000-0000-000000000002"), ServicesID = Guid.Parse("22222222-2222-2222-2222-222222222222") },
+                            new { ClientsID = Guid.Parse("00000000-0000-0000-0000-000000000002"), ServicesID = Guid.Parse("55555555-5555-5555-5555-555555555555") },
+                            new { ClientsID = Guid.Parse("00000000-0000-0000-0000-000000000003"), ServicesID = Guid.Parse("33333333-3333-3333-3333-333333333333") },
+                            new { ClientsID = Guid.Parse("00000000-0000-0000-0000-000000000003"), ServicesID = Guid.Parse("88888888-8888-8888-8888-888888888888") },
+                            new { ClientsID = Guid.Parse("00000000-0000-0000-0000-000000000004"), ServicesID = Guid.Parse("dddddddd-dddd-dddd-dddd-dddddddddddd") },
+                            new { ClientsID = Guid.Parse("00000000-0000-0000-0000-000000000004"), ServicesID = Guid.Parse("eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee") },
+                            new { ClientsID = Guid.Parse("00000000-0000-0000-0000-000000000005"), ServicesID = Guid.Parse("55555555-5555-5555-5555-555555555555") },
+                            new { ClientsID = Guid.Parse("00000000-0000-0000-0000-000000000005"), ServicesID = Guid.Parse("77777777-7777-7777-7777-777777777777") },
+                            new { ClientsID = Guid.Parse("00000000-0000-0000-0000-000000000006"), ServicesID = Guid.Parse("66666666-6666-6666-6666-666666666666") },
+                            new { ClientsID = Guid.Parse("00000000-0000-0000-0000-000000000006"), ServicesID = Guid.Parse("ffffffff-ffff-ffff-ffff-ffffffffffff") }
+                        );
+                    }
+                );
 
             // Seed data for FullAddress and FullName already use static values.
             modelBuilder.Entity<FullAddress>().HasData(
